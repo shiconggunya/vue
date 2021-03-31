@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>app:{{num1}}</h1>
+      <cpn 
+      :number1="num1" 
+      :number2="num2"
+      @num1chinge="num1chinge"
+      @num2chinge ='num2chinge' 
+       />
+    </div>
+
+    <template id="cpn">
+      <div>
+        <h2>props: {{number1}}</h2>
+        <h2>data: {{dnumber1}}</h2>
+        <!-- <input type="text" v-model='dnumber1'> -->
+        <input type="text" :value="dnumber1" @input="num1Input" />
+        <h2>props: {{number2}}</h2>
+        <h2>data: {{dnumber2}}</h2>
+        <input type="text" :value="dnumber2" @input="num2Input" />
+      </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+      // 子组件
+      const cpn = {
+        template: "#cpn",
+        props: {
+          number1: Number,
+          number2: Number,
+        },
+        data() {
+          return {
+            dnumber1: this.number1,
+            dnumber2: this.number2,
+          };
+        },
+        methods: {
+          num1Input(event) {
+            this.dnumber1 = event.target.value;
+            // 发射
+            this.$emit("num1chinge", this.dnumber1*1);
+            //100倍
+            this.dnumber2 = this.number1*100;
+            this.$emit('num2chinge',this.dnumber2*1)
+          },
+          num2Input(event) {
+            this.dnumber2 = event.target.value;
+            // 发射
+            this.$emit("num2chinge", this.dnumber2*1);
+             //100倍
+             this.dnumber1 = this.number2/100;
+            this.$emit('num1chinge',this.dnumber1*1)
+          },
+        },
+      };
+
+      // 父组件
+      const app = new Vue({
+        el: "#app",
+        data: {
+          num1: 1,
+          num2: 0,
+        },
+        components: {
+          cpn,
+        },
+        methods: {
+          num1chinge(number) {
+            this.num1 = number*1 ;
+          },
+          num2chinge(number) {
+            this.num2 = number*1;
+          },
+
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    new Promise((resolve,reject)=>{
+      setTimeout(() => {
+        resolve('hello,vuejs');
+        reject('error,message');
+      }, 1000);
+    }).then(data =>{
+      //then可以传入两个参数
+      //第一个函数是成功
+      console.log(data);
+    },err =>{
+      //第二个函数是失败
+      console.log(err);
+    })
+  </script>
+</body>
+</html>

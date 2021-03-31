@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // new Promise(参数),创建Promise的时候传入一个参数,参数=函数
+    //参数=函数(resolve,reject){},resolve,reject本身又是一个函数
+    //链式编程
+    new Promise((resolve,reject)=>{
+      //第一次网络请求的代码
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    }).then(()=>{
+      //第一次拿到结果处理的代码
+      console.log('hello,world');
+      console.log('hello,world');
+      console.log('hello,world');
+
+      return new Promise((resolve,reject)=>{
+        //第二次网络请求的代码
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      })
+    }).then(()=>{
+      //第二次拿到结果
+      console.log('hello,vuejs');
+      console.log('hello,vuejs');
+      console.log('hello,vuejs');
+      return new Promise((resolve,reject)=>{
+        setTimeout(() => {
+          //第三次网络请求
+          resolve();
+        }, 1000);
+      })
+    }).then(()=>{
+      console.log('hello,python');
+      console.log('hello,python');
+      console.log('hello,python');
+    })
+  
+  //请求和处理数据分离
+  new Promise((resolve,reject)=>{
+    //在Promise里进行网络请求
+    setTimeout(() => {
+
+      //网络请求成功的时候,调用resolve
+      resolve('hello,data'); //传递请求到的数据
+
+      //网络请求失败的时候,调用reject
+      reject('error message')
+    }, 1000);
+  }).then((data)=>{
+    //在then对接收到的数据进行处理
+    console.log(data);
+    console.log(data);
+    console.log(data);
+  }).catch((err)=>{
+    //失败的时候进行处理
+    console.log(err);
+  })
+
+  </script>
+</body>
+</html>

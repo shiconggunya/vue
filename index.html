@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .isFinish{
+      color: red;
+      text-decoration: line-through sandybrown;
+    }
+  </style>
+  <script src="./vuebase/js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>任务计划管理</h1>
+    <h2>添加任务</h2>
+    <input type="text" v-model='item.title' @keyup.enter='add'>
+    <h2>任务清单
+      <span v-if='counter>0'>( {{counter}} 条未完成的任务)</span>
+      <span v-else>暂无任务</span>
+    </h2>
+    <ul>
+      <li v-for='(item,index) in list'>
+        <input type="checkbox" @click='changeIsFinish(index)'/>
+        <span :class={isFinish:item.isFinish}>
+          {{item.title}}
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        list:[],
+        item:{
+          title:'',
+          isFinish:false,
+        }
+      },
+      methods: {
+        add(){
+          this.list.push(this.item);
+          this.item ={
+          title:'',
+          isFinish:false,
+        }
+        },
+        changeIsFinish(index){
+          this.list[index].isFinish =event.target.checked;
+          console.log(this.list[index].isFinish);
+        }
+      },
+      computed:{
+        counter(){
+          return this.list.filter(item =>{
+            return item.isFinish === false
+          }).length
+        }
+      },
+    })
+  </script>
+</body>
+</html>

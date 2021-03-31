@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 1.修饰符:lazy  懒加载-->
+    <!-- 不会实时加载,等用户回车,或失去焦点在加载 -->
+    <input type="text" v-model.lazy='message'>
+    <h2>{{message}}</h2>
+
+    <!-- 2.修饰符:number  -->
+    <input type="number" v-model.number='age'>
+    <h2>年龄:{{typeof age}}--{{age}}</h2>
+
+    <!-- 3.修饰符:trim  去除左右两边的空格-->
+    <input type="text"  v-model.trim='name'>
+    <h2>姓名为:{{name}}</h2>
+  </div>
+
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el:'#app',
+      data:{
+        message:'hello',
+        age:18,
+        name:'sssss',      }
+    })
+  </script>
+</body>
+</html>
